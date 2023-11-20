@@ -29,7 +29,17 @@ public class GameManager : MonoBehaviour
     public bool FollowOrNo = true;
 
     [SerializeField]
-    private float MaxTimePowerUp = 20f;
+    private TMP_Text m_PowerUpTextGirafe;
+
+    private float TimeRemainPowerUpGirafe;
+
+    public bool SpawnGirafe = true;
+
+    [SerializeField]
+    private float MaxTimePowerUp = 10f;
+    
+    [SerializeField]
+    private float MaxTimePowerUpGirafe = 30f;
 
     private int killCounter = 0;
 
@@ -53,6 +63,7 @@ public class GameManager : MonoBehaviour
     void  Start()
     {
        TimeRemainPowerUp = 0f;
+       TimeRemainPowerUpGirafe = 0f;
     }
     public GameObject DefineTarget() { 
         return target;
@@ -65,21 +76,42 @@ public class GameManager : MonoBehaviour
         {
             float currentTime = Time.time - _startTime;
             TimeRemainPowerUp = TimeRemainPowerUp + Time.deltaTime;
-
+            TimeRemainPowerUpGirafe = TimeRemainPowerUpGirafe + Time.deltaTime;
+            //Power Up Scream
             if (TimeRemainPowerUp < MaxTimePowerUp)
             {
-                m_PowerUpText.text = string.Format("{0}", TimeRemainPowerUp.ToString()[0]) + "/10";
+                m_PowerUpText.text = string.Format("{0}", TimeRemainPowerUp.ToString()[0]) + "/" + MaxTimePowerUp;
             }
             else
             {
                 m_PowerUpText.text = string.Format("Ready To Use");
             }
-
-            if(Input.GetKeyDown(KeyCode.T) && TimeRemainPowerUp > MaxTimePowerUp) {
+            //Power Up Scream key input
+            if (Input.GetKeyDown(KeyCode.T) && TimeRemainPowerUp > MaxTimePowerUp)
+            {
 
                 TimeRemainPowerUp = 0f;
-                PowerUp();  
+                PowerUp();
             }
+
+            //Power Up Girafe
+            if (TimeRemainPowerUpGirafe < MaxTimePowerUpGirafe)
+            {
+                m_PowerUpTextGirafe.text = string.Format("{0}", TimeRemainPowerUpGirafe.ToString()[0]) + "/" + MaxTimePowerUpGirafe;
+            }
+            else
+            {
+                m_PowerUpTextGirafe.text = string.Format("Ready To Use");
+            }
+            //Power Up Girafe key input
+            if (Input.GetKeyDown(KeyCode.G) && TimeRemainPowerUpGirafe > MaxTimePowerUpGirafe)
+            {
+
+                TimeRemainPowerUpGirafe = 0f;
+                PowerUpGirafe();
+            }
+          
+            
 
             int minute = Mathf.FloorToInt(currentTime / 60F);
             int second = Mathf.FloorToInt(currentTime - minute * 60);
@@ -105,6 +137,11 @@ public class GameManager : MonoBehaviour
         FollowOrNo = true;
         audioManager.sound();
         Invoke("Follow", 3.0f);
+    }
+
+    public void PowerUpGirafe()
+    {
+        Debug.Log("Girafe on duty");
     }
 
     public void Follow()
