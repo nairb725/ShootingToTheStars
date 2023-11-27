@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public bool FollowOrNo = true;
 
     [SerializeField]
+    private GirafeSpawner girafeSpawner;
+
+    [SerializeField]
     private TMP_Text m_PowerUpTextGirafe;
 
     private float TimeRemainPowerUpGirafe;
@@ -142,6 +145,7 @@ public class GameManager : MonoBehaviour
     public void PowerUpGirafe()
     {
         Debug.Log("Girafe on duty");
+        girafeSpawner.SpawnGirafe();
     }
 
     public void Follow()
