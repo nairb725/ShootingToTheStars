@@ -16,7 +16,6 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     public void sound()
     {
-        Debug.Log("execute sound");
         audioSource.Play();
     }
 }
