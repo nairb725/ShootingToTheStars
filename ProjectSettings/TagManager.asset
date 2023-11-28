@@ -13,14 +13,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Menu
   - Water
   - UI
-  - 
-  - 
-  - postProcess
-  - 
-  - 
+  - Giraffe
+  - Bullet
+  - PostProcess
+  - Ennemy
+  - Player
   - 
   - 
   - 

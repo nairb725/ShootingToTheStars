@@ -26,23 +26,20 @@ public class GameManager : MonoBehaviour
 
     private float TimeRemainPowerUp;
 
-    public bool FollowOrNo = true;
+    public bool RaduisPropuls = false;
 
-    [SerializeField]
-    private GirafeSpawner girafeSpawner;
+    public bool GiraffeReady = false;
 
     [SerializeField]
     private TMP_Text m_PowerUpTextGirafe;
 
     private float TimeRemainPowerUpGirafe;
 
-    public bool SpawnGirafe = true;
-
     [SerializeField]
     private float MaxTimePowerUp = 10f;
     
     [SerializeField]
-    private float MaxTimePowerUpGirafe = 30f;
+    private float MaxTimePowerUpGirafe = 10f;
 
     private int killCounter = 0;
 
@@ -87,10 +84,10 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                m_PowerUpText.text = string.Format("Ready To Use");
+                m_PowerUpText.text = string.Format("E To Use");
             }
             //Power Up Scream key input
-            if (Input.GetKeyDown(KeyCode.T) && TimeRemainPowerUp > MaxTimePowerUp)
+            if (Input.GetKeyDown(KeyCode.E) && TimeRemainPowerUp > MaxTimePowerUp)
             {
 
                 TimeRemainPowerUp = 0f;
@@ -104,10 +101,10 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                m_PowerUpTextGirafe.text = string.Format("Ready To Use");
+                m_PowerUpTextGirafe.text = string.Format("Q To Use");
             }
             //Power Up Girafe key input
-            if (Input.GetKeyDown(KeyCode.G) && TimeRemainPowerUpGirafe > MaxTimePowerUpGirafe)
+            if (Input.GetKeyDown(KeyCode.A) && TimeRemainPowerUpGirafe > MaxTimePowerUpGirafe)
             {
 
                 TimeRemainPowerUpGirafe = 0f;
@@ -137,26 +134,29 @@ public class GameManager : MonoBehaviour
 
     public void PowerUp()
     {
-        FollowOrNo = true;
         audioManager.sound();
-        Invoke("Follow", 3.0f);
+        RaduisPropuls = true;
+        Invoke("Raduis", 1.0f);
     }
 
     public void PowerUpGirafe()
     {
-        Debug.Log("Girafe on duty");
-        girafeSpawner.SpawnGirafe();
+        GiraffeReady = true;
+        Invoke("Giraffe", 1f);
     }
 
-    public void Follow()
+    public void Giraffe()
     {
-        FollowOrNo = false;
+        GiraffeReady = false;
+    }
+
+    public void Raduis()
+    {
+        RaduisPropuls = false;
     }
 
     public bool isPlaying()
     {
-        //TODO : Stop playing
         return _isPlaying;
-        //TODO : Display game over screen with a delay (Hint : Search for the "Invoke" method in the Unity Documentation)
     }
 }

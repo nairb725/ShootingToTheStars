@@ -5,38 +5,36 @@ using UnityEngine;
 public class MovementZombie : MonoBehaviour
 {    
     [SerializeField]
-    private float moveSpeed; // Speed at which the enemy moves
-    [SerializeField]
     private bool _isTargetPlayer;
+    
+    [SerializeField]
+    private float moveSpeed = 10f;
+
+    private Transform target;
+
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        if (target == null)
+        {
+            // Trouver le joueur dans la scène s'il n'est pas spécifié
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+    }
 
     void Update()
     {
-        GameObject target = GameManager.Instance.DefineTarget();
-        bool follow = GameManager.Instance.FollowOrNo;
-
         if (target != null)
         {
-            if(follow == true)
-            {
-                // Calculate the direction from the enemy to the player
-                Vector3 direction = target.transform.position + transform.position;
+           
+                // Calculer la direction vers le joueur
+                Vector3 direction = (target.position - transform.position).normalized;
 
-                // Normalize the direction vector
-                direction.Normalize();
-
-                // Move the enemy towards the player
-                transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
-            } else
-            {
-                // Calculate the direction from the enemy to the player
-                Vector3 direction = target.transform.position - transform.position;
-
-                // Normalize the direction vector
-                direction.Normalize();
-
-                // Move the enemy towards the player
-                transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
-            }
+                // Appliquer une force dans la direction calculée
+                rb.AddForce(direction * moveSpeed);
         }
     }
 }
