@@ -9,6 +9,7 @@ TagManager:
   - Map
   - Spawner
   - Bullet
+  - GameOverScreen
   layers:
   - Default
   - TransparentFX

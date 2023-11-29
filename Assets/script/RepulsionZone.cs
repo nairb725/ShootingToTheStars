@@ -28,6 +28,11 @@ public class RepulsionZone : MonoBehaviour
             // Apply force to each collider
             foreach (Collider collider in colliders)
             {
+                if (collider.CompareTag("Bullet"))
+                {
+                    continue; // That will not affect bullets
+                }
+
                 Rigidbody rb = collider.GetComponent<Rigidbody>();
                 if (rb != null)
                 {

@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject target;
 
+    [SerializeField]
+    private Canvas GameOverScreen;
+
+    [SerializeField]
+    private Canvas GamePlayScreen;
+
     private float _startTime;
 
     [SerializeField]
@@ -16,10 +22,22 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Text m_KillText;
 
+    [SerializeField]
+    private TMP_Text m_TimeFighting;
+
+    [SerializeField]
+    private TMP_Text m_EnnemyKilled;
+
+    [SerializeField]
+    private TMP_Text m_Score;
+
     private float _startTimePowerUp;
 
     [SerializeField]
-    private AudioManager audioManager;
+    private AudioManagerRaduis audioManagerRaduis;
+
+    [SerializeField]
+    private AudioManagerGiraffe audioManagerGiraffe;
 
     [SerializeField]
     private TMP_Text m_PowerUpText;
@@ -62,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     void  Start()
     {
-       TimeRemainPowerUp = 0f;
+        TimeRemainPowerUp = 0f;
        TimeRemainPowerUpGirafe = 0f;
     }
     public GameObject DefineTarget() { 
@@ -97,7 +115,7 @@ public class GameManager : MonoBehaviour
             //Power Up Girafe
             if (TimeRemainPowerUpGirafe < MaxTimePowerUpGirafe)
             {
-                m_PowerUpTextGirafe.text = string.Format("{0}", TimeRemainPowerUpGirafe.ToString()[0]) + "/" + MaxTimePowerUpGirafe;
+                m_PowerUpTextGirafe.text = m_PowerUpTextGirafe.text = TimeRemainPowerUpGirafe.ToString("F0") + "/" + MaxTimePowerUpGirafe;
             }
             else
             {
@@ -121,9 +139,34 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        //TODO : Stop playing
         _isPlaying = false;
-        //TODO : Display game over screen with a delay (Hint : Search for the "Invoke" method in the Unity Documentation)
+        Invoke("SetupGameOverScreen", 0f);
+        Invoke("ShowGameOverScreen", 2f);
+    }
+
+    void SetupGameOverScreen()
+    {
+        m_TimeFighting.text = ("Time Fighting : " + m_TimerText.text);
+        m_EnnemyKilled.text = ("Ennemy Killed : " + killCounter);
+        if(killCounter < 50)
+        {
+            m_Score.text = ("The Fuhrer is disappointed");
+        }
+        if (killCounter > 50 && killCounter <125)
+        {
+            m_Score.text = ("You can do better Gunter");
+        }
+        if (killCounter > 125)
+        {
+            m_Score.text = ("Pure blood soldier good job !");
+
+        }
+
+    }
+    void ShowGameOverScreen()
+    {
+        GamePlayScreen.gameObject.SetActive(false);
+        GameOverScreen.gameObject.SetActive(true);
     }
 
     public void AddKill()
@@ -134,13 +177,14 @@ public class GameManager : MonoBehaviour
 
     public void PowerUp()
     {
-        audioManager.sound();
+        audioManagerRaduis.sound();
         RaduisPropuls = true;
         Invoke("Raduis", 1.0f);
     }
 
     public void PowerUpGirafe()
     {
+        audioManagerGiraffe.sound();
         GiraffeReady = true;
         Invoke("Giraffe", 1f);
     }
