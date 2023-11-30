@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     void  Start()
     {
         TimeRemainPowerUp = 0f;
-       TimeRemainPowerUpGirafe = 0f;
+        TimeRemainPowerUpGirafe = 0f;
     }
     public GameObject DefineTarget() { 
         return target;

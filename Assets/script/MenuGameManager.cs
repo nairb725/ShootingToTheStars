@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuGameManager : MonoBehaviour
 {
-    public AudioSource audioSource;
+    [SerializeField]
+    private AudioSource audioSource;
 
     public void Play()
     {
