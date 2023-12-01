@@ -32,11 +32,6 @@ public class MovementCharacter : MonoBehaviour
         moveDirection = forward + right;
         moveDirection.Normalize();
 
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            
-        }
-
         // Application de la gravité
         if (characterController.isGrounded)
         {
