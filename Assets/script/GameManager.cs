@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         //TODO : Update timer while in game
         if (_isPlaying == true)
         {
-            float currentTime = Time.time - _startTime;
+            float currentTime = Time.timeSinceLevelLoad - _startTime;
             TimeRemainPowerUp = TimeRemainPowerUp + Time.deltaTime;
             TimeRemainPowerUpGirafe = TimeRemainPowerUpGirafe + Time.deltaTime;
             //Power Up Scream
@@ -101,10 +101,10 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                m_PowerUpText.text = string.Format("E To Use");
+                m_PowerUpText.text = string.Format("X To Use");
             }
             //Power Up Scream key input
-            if (Input.GetKeyDown(KeyCode.E) && TimeRemainPowerUp > MaxTimePowerUp)
+            if (Input.GetKeyDown(KeyCode.X) && TimeRemainPowerUp > MaxTimePowerUp)
             {
 
                 TimeRemainPowerUp = 0f;
@@ -118,10 +118,10 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                m_PowerUpTextGirafe.text = string.Format("Q To Use");
+                m_PowerUpTextGirafe.text = string.Format("C To Use");
             }
             //Power Up Girafe key input
-            if (Input.GetKeyDown(KeyCode.A) && TimeRemainPowerUpGirafe > MaxTimePowerUpGirafe)
+            if (Input.GetKeyDown(KeyCode.C) && TimeRemainPowerUpGirafe > MaxTimePowerUpGirafe)
             {
 
                 TimeRemainPowerUpGirafe = 0f;
