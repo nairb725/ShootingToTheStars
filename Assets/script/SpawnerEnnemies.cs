@@ -24,7 +24,6 @@ public class SpawnerEnnemies : MonoBehaviour
     [SerializeField]
     private bool spawnBool;
 
-    // Start is called before the first frame update
     void Start()
     {
         KeepSpawning = FindObjectOfType<GameManager>();

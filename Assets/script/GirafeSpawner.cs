@@ -13,7 +13,6 @@ public class GirafeSpawner : MonoBehaviour
     [SerializeField]
     private Rigidbody Prefab;
 
-    // Start is called before the first frame update
     void Start()
     {
 

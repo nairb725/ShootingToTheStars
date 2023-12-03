@@ -25,14 +25,13 @@ public class MovementCharacter : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        // Déplacement horizontal
         Vector3 forward = transform.forward * moveZ;
         Vector3 right = transform.right * moveX;
 
         moveDirection = forward + right;
         moveDirection.Normalize();
 
-        // Application de la gravité
+        // If on the floor
         if (characterController.isGrounded)
         {
             verticalSpeed = 0.0f;
@@ -42,13 +41,12 @@ public class MovementCharacter : MonoBehaviour
             verticalSpeed += Physics.gravity.y * Time.deltaTime;
         }
 
-        // Gestion du saut
+        // Jump 
         if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
         {
             verticalSpeed = CalculateJumpVerticalSpeed();
         }
 
-        // Application de la vélocité
         moveDirection.y = verticalSpeed;
         characterController.Move(moveDirection * speed * Time.deltaTime);
     }

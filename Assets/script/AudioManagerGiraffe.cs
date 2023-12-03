@@ -6,8 +6,6 @@ public class AudioManagerGiraffe : MonoBehaviour
 {
     [SerializeField]
     private AudioSource audioSource;
-
-    // Update is called once per frame
     public void sound()
     {
         audioSource.Play();

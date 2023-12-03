@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
 
     public bool _isPlaying = true;
 
+    [SerializeField]
+    private HighscoreManager highscoreManager;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -139,6 +142,15 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         _isPlaying = false;
+
+        int currentHighscore = PlayerPrefs.GetInt("Highscore", 0);
+        // if new score is better than current score 
+        if (killCounter > currentHighscore)
+        {
+            // Update with the better score
+            PlayerPrefs.SetInt("Highscore", killCounter);
+            PlayerPrefs.Save();
+        }
         Invoke("SetupGameOverScreen", 0f);
         Invoke("ShowGameOverScreen", 2f);
     }

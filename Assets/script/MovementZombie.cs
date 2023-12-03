@@ -20,7 +20,7 @@ public class MovementZombie : MonoBehaviour
 
         if (target == null)
         {
-            // Trouver le joueur dans la scène s'il n'est pas spécifié
+            // Find the player
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
@@ -30,10 +30,10 @@ public class MovementZombie : MonoBehaviour
         if (target != null)
         {
            
-                // Calculer la direction vers le joueur
+                // Ajust position targeting the player
                 Vector3 direction = (target.position - transform.position).normalized;
 
-                // Appliquer une force dans la direction calculée
+                // Apply force
                 rb.AddForce(direction * moveSpeed);
         }
     }
